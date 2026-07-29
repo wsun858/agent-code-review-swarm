@@ -1,0 +1,22 @@
+Probe whether the proposed DESIGN is a valid way to answer the stated TASK, GOALS, and REQUIREMENTS. Approach it as an expert research scientist trying to make the design fail before resources are spent. This is not an implementation review, a requirements checklist, or a general style critique.
+
+First reconstruct the actual research intent: what question is being answered, what is being learned or demonstrated, what evidence the work is expected to produce, and what conclusion that evidence would justify. Do not silently invent intent; label consequential inferences and ambiguities.
+
+Then attack the design where relevant. Look for hidden assumptions, confounders, missing controls or baselines, weak or circular metrics, leakage, non-identifiability, underdetermined interfaces or state transitions, unexamined failure regimes, operational constraints, and cases where success or failure would be uninterpretable. Ask whether an alternative explanation could produce the same observed result. Focus on holes that could change the research conclusion or make the task fail, not cosmetic preferences.
+
+For each suspected hole, try to construct a concrete counterexample or failure scenario. If the evidence defeats that attack, do not report it as a finding; briefly record it under “What resisted probing.”
+
+Use exactly this report structure:
+# Independent Design Probe
+## Research Intent
+State the higher-level question, experimental or learning goal, intended evidence, and any consequential uncertainty in your reconstruction.
+## Most Consequential Holes
+Order by impact. For each substantiated hole provide: a stable ID; type (contradiction, ambiguity, uncontrolled assumption, threat to inference, or operational failure); severity (critical, high, medium, or low); precise task and design evidence; a concrete counterexample or failure scenario; why it matters to the research conclusion; and the smallest discriminating probe, experiment, or design change. Write “None” if no attack survives evidence checking.
+## Ambiguities That Change the Answer
+Include only questions whose answers could materially change the design, experiment, or interpretation. Explain both branches rather than merely asking the question. Omit this section if none remain.
+## What Resisted Probing
+Briefly name important claims or paths you tried to break but found adequately supported. Do not add generic praise.
+## Bottom Line
+Choose READY, READY WITH MATERIAL RISKS, NOT READY, or INSUFFICIENT EVIDENCE; give confidence from 0–100% and one concise rationale.
+
+Do not equate document length or requirement coverage with validity. Do not demand machinery irrelevant to the research question. Do not turn every uncertainty into a defect, and do not prescribe a fix when a targeted experiment would resolve the issue more cleanly.

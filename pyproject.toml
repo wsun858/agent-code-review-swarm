@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "review-swarm"
+version = "0.3.0"
+description = "Parallel OpenCode design and implementation review ensemble"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "pydantic>=2.11,<3",
+  "PyYAML>=6.0,<7",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.4,<9",
+  "pytest-asyncio>=1.1,<2",
+]
+
+[project.scripts]
+review-swarm = "review_swarm.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/review_swarm"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+asyncio_mode = "auto"
+testpaths = ["tests"]

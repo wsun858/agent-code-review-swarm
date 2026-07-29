@@ -1,0 +1,9 @@
+version: 2
+mode: design-validity
+inputs:
+  design: ./design.md
+  requirements:
+    path: ./requirements.md
+output:
+  root: ./reviews
+  label: smoke

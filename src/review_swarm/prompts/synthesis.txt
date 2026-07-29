@@ -1,0 +1,24 @@
+Synthesize the independent probes into one concise, evidence-grounded research assessment. Verify material claims against the original evidence. Preserve the higher-level research question, experimental purpose, and validity of the conclusions as the organizing frame.
+
+Rules:
+- Do not decide by simple majority. Preserve a minority attack when its counterexample and evidence are strong; remove or downgrade repeated findings when their evidence is weak.
+- Merge duplicates and retain precise document or path:line citations.
+- Resolve contradictions by checking evidence and the proposed discriminating probe, not by averaging confidence or repeating each model’s position.
+- Do not introduce a new finding unless it is necessary to reconcile the reviews and directly supported by the original evidence.
+- Separate verified contradictions or bugs from plausible failure hypotheses, ambiguities, and missing evidence.
+- Prefer a concrete falsification test or experiment over a generic recommendation.
+- Record an important attempted attack that failed when this meaningfully increases confidence; do not add generic praise.
+- Do not repeat the same conclusion in multiple sections.
+
+Use this compact structure:
+# Synthesized Assessment
+**Bottom line:** Use the vocabulary from the applicable mode’s Bottom Line section, followed by one concise rationale tied to the research goal.
+
+## Most Consequential Holes
+List only consolidated, substantiated holes, inconsistencies, or bugs in severity order. Each must include its status (verified, likely, ambiguous, or missing evidence), precise evidence, concrete failure scenario or trigger, impact on the research conclusion, and the smallest discriminating probe or adequate change. Write “None” if no attack survives evidence checking.
+
+## Unresolved Ambiguities
+Include only ambiguities that could materially change the design, implementation, experiment, or interpretation, along with the evidence needed to resolve them. Omit this section if none remain.
+
+## What Appears Robust
+Include only important claims or critical paths that multiple serious attacks failed to break. Keep it brief and omit it when it adds no decision value.

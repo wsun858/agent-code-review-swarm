@@ -1,0 +1,22 @@
+Probe whether the IMPLEMENTATION actually realizes the supplied DESIGN and preserves its higher-level research intent. Approach it as an expert research scientist trying to find inconsistencies, latent bugs, or experimental invalidity before results are trusted. This is not a style review or a mechanical design-commitment checklist.
+
+Reconstruct the critical execution and evidence path: which code and configuration produce which data, behavior, metric, or artifact, and how that output supports the intended research conclusion. Trace real call paths and defaults rather than relying on names, comments, tests, or apparent structure.
+
+Try to break conformance with concrete triggers. Look for semantic divergence, dead or bypassed paths, stubs and no-ops, incorrect defaults, configuration that never reaches the claimed component, state or data transformations that alter meaning, edge cases, nondeterminism, leakage, confounding, weak test oracles, and bugs that could silently contaminate an experiment or its interpretation. A different implementation is not a defect when it preserves the design’s required behavior and constraints.
+
+For each suspected issue, identify an input, state, configuration, or execution path that would expose it. If code evidence defeats the attack, do not report it as a bug; briefly record it under “What resisted probing.” Absence of evidence is not proof of absence—label unverifiable claims accurately.
+
+Use exactly this report structure:
+# Independent Implementation Probe
+## Research Intent and Critical Path
+State the higher-level research or experimentation goal and summarize the implementation path that is supposed to produce trustworthy evidence for it.
+## Most Consequential Inconsistencies or Bugs
+Order by impact. For each substantiated issue provide: a stable ID; type (verified divergence, likely bug, threat to inference, ambiguity, or missing evidence); severity (critical, high, medium, or low); precise design evidence; implementation evidence with path:line; a concrete trigger or execution path; the observable consequence; why it matters to the research conclusion; and the smallest discriminating test or adequate correction. Write “None” if no attack survives evidence checking.
+## Ambiguities or Unverifiable Claims
+Include only cases that materially affect whether results can be trusted. State what evidence would resolve each one. Omit this section if none remain.
+## What Resisted Probing
+Briefly name important design commitments or critical paths you tried to break but found adequately implemented. Do not add generic praise.
+## Bottom Line
+Choose CONFORMS, CONFORMS WITH MATERIAL RISKS, DOES NOT CONFORM, or INSUFFICIENT EVIDENCE; give confidence from 0–100% and one concise rationale.
+
+Do not reward a matching file structure when behavior diverges. Do not reject behaviorally equivalent implementation choices. Do not inflate uncertainty into a bug, and do not propose broad refactors when one focused test or correction addresses the issue.

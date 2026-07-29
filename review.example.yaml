@@ -1,0 +1,91 @@
+version: 2
+mode: implementation-conformance
+
+# Relative paths are resolved from this YAML file's directory, not the current
+# shell directory. Mode 2 (implementation-conformance) uses "design" plus
+# "workspace" instead of "requirements".
+inputs:
+  design: ./DESIGN.md
+  workspace: ../implementation
+
+context:
+  # OpenCode explores the repository on demand; these globs guide its search.
+  strategy: agent
+  include:
+    - "src/**"
+    - "tests/**"
+    - "configs/**"
+    - "scripts/**"
+  exclude:
+    - ".git/**"
+    - "**/node_modules/**"
+    - "**/.venv/**"
+    - "**/venv/**"
+    - "**/dist/**"
+    - "**/build/**"
+    - "**/coverage/**"
+    - "**/__pycache__/**"
+    - "**/.pytest_cache/**"
+    - "**/.mypy_cache/**"
+    - "**/.ruff_cache/**"
+  sensitive_paths:
+    - "**/.env"
+    - "**/.env.*"
+    - "**/*.pem"
+    - "**/*.key"
+    - "**/.npmrc"
+    - "**/.pypirc"
+    - "**/.netrc"
+    - "**/credentials*"
+    - "**/.aws/**"
+    - "**/.ssh/**"
+
+ensemble:
+  # Each reviewer declares only settings its model and privacy-compatible
+  # endpoints support. null omits a parameter and uses the model/provider default.
+  reviewers:
+    - model: deepseek/deepseek-v4-flash
+      reasoning_effort: high
+      temperature: 0.6
+    - model: deepseek/deepseek-v4-flash
+      reasoning_effort: high
+      temperature: 0.6
+    - model: google/gemini-3.5-flash-lite
+      reasoning_effort: high
+      temperature: null
+    - model: google/gemini-3.5-flash-lite
+      reasoning_effort: high
+      temperature: null
+  # Omit/null means all configured reviewers must succeed before synthesis.
+  minimum_successful_reviewers: null
+
+combiner:
+  model: deepseek/deepseek-v4-pro
+  reasoning_effort: xhigh
+  temperature: 0.2
+
+# Optional lower-priority guidance for this particular job. It is appended to the
+# fixed mode prompt for every reviewer and the combiner. It can add scientific
+# context, focus questions, or domain rules, but cannot replace the fixed review
+# objective, evidence requirements, independence, or output contract.
+# prompt:
+#   additional_instructions: |-
+#     The central research question is: <state it here>.
+#     The experiment should distinguish: <hypothesis A> from <hypothesis B>.
+#     Pay special attention to: <domain-specific failure mode or constraint>.
+
+privacy:
+  zero_data_retention: true
+  data_collection: deny
+  secret_scan: true
+
+opencode:
+  executable: opencode
+  provider: openrouter
+  concurrency: 4
+  timeout_seconds: 1200
+
+output:
+  root: ./reviews
+  label: implementation-review
+  save_input_bundle: true
