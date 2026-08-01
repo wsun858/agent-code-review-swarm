@@ -5,8 +5,8 @@ mode: implementation-conformance
 # shell directory. Mode 2 (implementation-conformance) uses "design" plus
 # "workspace" instead of "requirements".
 inputs:
-  design: ./DESIGN.md
-  workspace: ../implementation
+  design: /Users/william.sun/sigma/ai-labs/projects/agent-foundry/docs/memory_gn_v2/DESIGN.md
+  workspace: /Users/william.sun/sigma/ai-labs/projects/agent-foundry
 
 context:
   # OpenCode explores the repository on demand; these globs guide its search.
@@ -44,25 +44,27 @@ ensemble:
   # Each reviewer declares only settings its model and privacy-compatible
   # endpoints support. null omits a parameter and uses the model/provider default.
   reviewers:
-    - model: deepseek/deepseek-v4-flash
+    - model: deepseek/deepseek-v4-flash-0731
       reasoning_effort: high
       temperature: 0.6
-    - model: deepseek/deepseek-v4-flash
+    - model: deepseek/deepseek-v4-flash-0731
       reasoning_effort: high
       temperature: 0.6
-    - model: google/gemini-3.5-flash-lite
+    - model: openai/gpt-5.6-luna
       reasoning_effort: high
       temperature: null
-    - model: google/gemini-3.5-flash-lite
+    - model: openai/gpt-5.6-luna
       reasoning_effort: high
       temperature: null
   # Omit/null means all configured reviewers must succeed before synthesis.
   minimum_successful_reviewers: null
 
 combiner:
-  model: deepseek/deepseek-v4-pro
-  reasoning_effort: xhigh
-  temperature: 0.2
+  # Kimi K3 exposes reasoning_effort variants but OpenCode's catalog reports no
+  # temperature support, so temperature must stay null (provider default).
+  model: moonshotai/kimi-k3
+  reasoning_effort: high
+  temperature: null
 
 # Optional lower-priority guidance for this particular job. It is appended to the
 # fixed mode prompt for every reviewer and the combiner. It can add scientific
